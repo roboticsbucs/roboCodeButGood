@@ -8,7 +8,11 @@
 /*----------------------------------------------------------------------------*/
 
 #include "vex.h"
+#include "JoystickController.h"
+#include "ButtonController.h"
+#include <iostream>
 
+using namespace std;
 using namespace vex;
 
 // A global instance of competition
@@ -26,7 +30,8 @@ competition Competition;
 /*  not every time that the robot is disabled.                               */
 /*---------------------------------------------------------------------------*/
 
-void pre_auton(void) {
+void pre_auton(void)
+{
 
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
@@ -42,7 +47,8 @@ void pre_auton(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-void autonomous(void) {
+void autonomous(void)
+{
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -57,10 +63,44 @@ void autonomous(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+/*
+static BetterButton aButton;
+static void aButtonPushed() { aButton.onPush(); }
 
-void usercontrol(void) {
+class BetterButton {
+ public:
+  BetterButton(vexButtonClassofSomeType& wrapThis): wrapped_button(wrapThis) {
+    wrapped_button_.onPressed(blah);
+    wrapped_button_.onRelease(blah);
+  }
+
+  ~BetterButton() {
+    wrapped_botton_.stopCallingMeForOnPressedDarnIt();
+    wrapped_button_.stopCallingMeForOnReleaesDarnIt();
+  }
+
+ private:
+  void onPress() {
+
+  }
+   
+  void onRelease() {
+
+  }
+  vexButtonClassOfSomeType& wrapped_button_;
+}
+*/
+
+
+void usercontrol(void)
+{
+  // instantiate your controller wrapper here.
+  // Get the buttons from the controller wrapper.  Establish the std::function that should be
+  // called when the button is (pressed?  released?  double tapped?  what?)
+
   // User control code here, inside the loop
-  while (1) {
+  while (1)
+  {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
@@ -78,7 +118,8 @@ void usercontrol(void) {
 //
 // Main will set up the competition functions and callbacks.
 //
-int main() {
+int main()
+{
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
@@ -87,7 +128,8 @@ int main() {
   pre_auton();
 
   // Prevent main from exiting with an infinite loop.
-  while (true) {
+  while (true)
+  {
     wait(100, msec);
   }
 }
